@@ -23,10 +23,10 @@ impl<T> List<T> where T:Clone+Display {
         self
     }
 
-    fn iterate<F>(&self, mut f: F) where F: FnMut(Link<T>) {
+    fn iterate<F>(&self, mut f: F) where F: FnMut(&Link<T>) {
        let mut ptr = self.start.clone();
        loop {
-            f(ptr.clone());
+            f(&ptr);
             match *ptr {
                 Nil => { break;  },
                 Node(_, next) => { ptr = next; }
@@ -47,13 +47,13 @@ impl<T> List<T> where T:Clone+Display {
         let mut ret_val = String::new();
         self.iterate(|ptr| {
             let ret = &mut ret_val;
-            match *ptr {
+            match **ptr {
                 Nil => { *ret = format!("{}, Nil", *ret); },
-                Node(val,_)=> {
+                Node(ref val,_)=> {
                     if (*ret).len() > 0 {
-                        *ret = format!("{}, {}", *ret, val);
+                        *ret = format!("{}, {}", *ret, *val);
                     } else {
-                        *ret = format!("{}", val);
+                        *ret = format!("{}", *val);
                     }
                 },
             }
