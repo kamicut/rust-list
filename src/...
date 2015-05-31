@@ -1,9 +1,0 @@
-extern crate list;
-
-fn main() {
-    let mut list = list::List::new();
-    list.prepend(3).prepend(4);
-
-    println!("{}, len: {}", list.stringify(), list.len());
-
-}
