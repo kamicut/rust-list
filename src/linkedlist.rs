@@ -1,24 +1,21 @@
-use std::fmt::Display;
 use self::NodeType::{Node, Nil};
 
 type Link<T> = Box<NodeType<T>>;
 
-#[derive(Clone)]
-enum NodeType<T> where T:Clone+Display {
+enum NodeType<T> {
     Node(T, Link<T>),
     Nil,
 }
 
-pub struct List<T> where T:Clone+Display {
+pub struct List<T> {
     start: Link<T>,
 }
 
-pub struct ListIter<'a, T: 'a> where T: Clone+Display{
+pub struct ListIter<'a, T: 'a> {
     current: &'a Link<T>
 }
 
-impl<'a, T> Iterator for ListIter<'a, T>
- where T: Clone+Display {
+impl<'a, T> Iterator for ListIter<'a, T> where T: Clone {
     type Item=T;
 
     fn next(&mut self) -> Option<T> {
@@ -32,7 +29,7 @@ impl<'a, T> Iterator for ListIter<'a, T>
     }
 }
 
-impl<T> List<T> where T:Clone+Display {
+impl<T> List<T> {
     pub fn new() -> List<T> {
         List { start: Box::new(Nil) }
     }
