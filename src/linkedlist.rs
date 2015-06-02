@@ -7,13 +7,9 @@ enum NodeType<T> {
     Nil,
 }
 
-pub struct List<T> {
-    start: Link<T>,
-}
+pub struct List<T> { head: Link<T>, }
 
-pub struct ListIter<'a, T: 'a> {
-    current: &'a Link<T>
-}
+pub struct ListIter<'a, T: 'a> { current: &'a Link<T> }
 
 impl<'a, T> Iterator for ListIter<'a, T> where T: Clone {
     type Item=T;
@@ -31,19 +27,19 @@ impl<'a, T> Iterator for ListIter<'a, T> where T: Clone {
 
 impl<T> List<T> {
     pub fn new() -> List<T> {
-        List { start: Box::new(Nil) }
+        List { head: Box::new(Nil) }
     }
 
     pub fn prepend(&mut self, val: T) -> &mut List<T> {
         use std::mem::replace;
-        let head = replace(&mut self.start, Box::new(Nil));
-        self.start = Box::new(Node(val, head));
+        let head = replace(&mut self.head, Box::new(Nil));
+        self.head = Box::new(Node(val, head));
         self
     }
 
     pub fn iter(&self) -> ListIter<T> {
         ListIter {
-            current: &self.start
+            current: &self.head
         }
     }
 }

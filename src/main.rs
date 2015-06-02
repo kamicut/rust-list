@@ -7,9 +7,11 @@ fn main() {
         list.prepend(i);
     }
 
-    let v = list.iter().map(|x| {
-       x.to_string() 
-    }).collect::<Vec<String>>().connect(", ");
+    let tostring = list.iter()
+        .map(|x| { x.to_string() })
+        .collect::<Vec<String>>()
+        .connect(", ");
 
-    println!("{}", v);
+    println!("{}", tostring);
+    println!("length: {}", list.iter().count())
 }
