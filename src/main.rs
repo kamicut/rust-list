@@ -2,9 +2,14 @@ extern crate linkedlist;
 
 fn main() {
     let mut list = linkedlist::List::new();
-    list.prepend(3)
-        .prepend(4);
 
+    for i in 0..100 {
+        list.prepend(i);
+    }
 
-    println!("{}, len: {}", list.stringify(), list.len());
+    let v = list.iter().map(|x| {
+       x.to_string() 
+    }).collect::<Vec<String>>().connect(", ");
+
+    println!("{}", v);
 }
